@@ -1,104 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-  <meta name="description" content="Webpage description goes here" />
-  <meta charset="utf-8">
-  <title>Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Lorenzo Rossi">
-
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/loadingicon.css') }}">
-
-  <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
-  <style>
-    @font-face {
-      font-family: RobotoLight;
-      src: url("{{ url_for('static', filename='fonts/Roboto-Light.ttf') }}");
-    }
-    @font-face {
-      font-family: RobotoMedium;
-      src: url("{{ url_for('static', filename='fonts/Roboto-Medium.ttf') }}");
-    }
-    @font-face {
-      font-family: RobotoRegular;
-      src: url("{{ url_for('static', filename='fonts/Roboto-Regular.ttf') }}");
-    }
-  </style>
-
-</head>
-
-  <body>
-    <div class="errormessage">
-      <p>Error: cannot connect to server. <br> Check server status and connection.</p>
-      <p class="closebutton">close</p>
+{% block content %}
+  <div class="errormessage">
+    <p>Error: cannot connect to server. <br> Check server status and connection.</p>
+    <p class="closebutton">close</p>
+  </div>
+  <div class="networkcontainer">
+    <div class="network" id="hostname">
+      <p class="statvalue"></p>
     </div>
-    <div class="networkcontainer">
-      <div class="network" id="hostname">
-        <p class="statvalue"></p>
-      </div>
-      <p class="separator"></p>
-      <div class="network" id="ip">
-        <p class="statvalue"></p>
-      </div>
-      <div class="network" id="symbol">
-      </div>
+    <p class="separator"></p>
+    <div class="network" id="ip">
+      <p class="statvalue"></p>
     </div>
-    <div class="loadingicon">
-      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    <div class="network" id="symbol">
     </div>
-    <div class="statscontainer">
-      <div class="stat" id="cpu">
-        <p class="statname">CPU usage</p>
-        <p class="statvalue">-</p>
-      </div>
-      <div class="stat" id="ram">
-        <p class="statname">RAM usage</p>
-        <p class="statvalue">-</p>
-      </div>
-      <div class="stat" id="load">
-        <p class="statname">CPU load</p>
-        <p class="statvalue">-</p>
-      </div>
-      <div class="stat" id="network">
-        <p class="statname">Network</p>
-        <p class="statvalue">-</p>
-      </div>
-      <div class="stat" id="temperature">
-        <p class="statname">Temperature</p>
-        <p class="statvalue">-</p>
-      </div>
-      <div class="stat" id="corevoltage">
-        <p class="statname">Core voltage</p>
-        <p class="statvalue">-</p>
-      </div>
-      <div class="stat" id="hdd">
-        <p class="statname">HDD</p>
-        <p class="statvalue">-</p>
-      </div>
-      <div class="stat" id="exthdd">
-        <p class="statname">ext HDD</p>
-        <p class="statvalue">-</p>
-      </div>
-      <div class="stat" id="overheating">
-        <p class="statname">Overheating</p>
-        <p class="statvalue">-</p>
-      </div>
-      <div class="stat" id="undervoltage">
-        <p class="statname">Undervoltage</p>
-        <p class="statvalue">-</p>
-      </div>
-      <div class="stat" id="sshconnections">
-        <p class="statname">Active SSH</p>
-        <p class="statvalue">-</p>
-      </div>
-      <div class="stat" id="ftpconnections">
-        <p class="statname">Active FTP</p>
-        <p class="statvalue">-</p>
-      </div>
+  </div>
+  <div class="loadingicon">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+  <div class="statscontainer">
+    <div class="stat" id="cpu">
+      <p class="statname">CPU usage</p>
+      <p class="statvalue">-</p>
     </div>
-  </body>
-</html>
+    <div class="stat" id="ram">
+      <p class="statname">RAM usage</p>
+      <p class="statvalue">-</p>
+    </div>
+    <div class="stat" id="load">
+      <p class="statname">CPU load</p>
+      <p class="statvalue">-</p>
+    </div>
+    <div class="stat" id="network">
+      <p class="statname">Network</p>
+      <p class="statvalue">-</p>
+    </div>
+    <div class="stat" id="temperature">
+      <p class="statname">Temperature</p>
+      <p class="statvalue">-</p>
+    </div>
+    <div class="stat" id="corevoltage">
+      <p class="statname">Core voltage</p>
+      <p class="statvalue">-</p>
+    </div>
+    <div class="stat" id="hdd">
+      <p class="statname">HDD</p>
+      <p class="statvalue">-</p>
+    </div>
+    <div class="stat" id="exthdd">
+      <p class="statname">ext HDD</p>
+      <p class="statvalue">-</p>
+    </div>
+    <div class="stat" id="overheating">
+      <p class="statname">Overheating</p>
+      <p class="statvalue">-</p>
+    </div>
+    <div class="stat" id="undervoltage">
+      <p class="statname">Undervoltage</p>
+      <p class="statvalue">-</p>
+    </div>
+    <div class="stat" id="sshconnections">
+      <p class="statname">Active SSH</p>
+      <p class="statvalue">-</p>
+    </div>
+    <div class="stat" id="ftpconnections">
+      <p class="statname">Active FTP</p>
+      <p class="statvalue">-</p>
+    </div>
+  </div>
+{% endblock %}

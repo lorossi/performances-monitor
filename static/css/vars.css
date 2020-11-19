@@ -1,0 +1,28 @@
+:root {
+  --stats-vertical-spacing: 2vh;
+  --stats-horizontal-spacing: 2vh;
+  --error-code-size: 10rem;
+  --error-description-size: 4rem;
+  --primary-font-size: 1.5rem;
+  --secondary-font-size: 1rem;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+  --border-radius: 2px;
+  --main-bg-color: #F8F8F8;
+  --text-color: #000000;
+  --error-color: #E64A19;
+  --ok-color: #388E3C;
+  --loading-color: #969696;
+  --error-symbol: ✗;
+  --ok-symbol: ✓;
+}
+
+@media only screen and (min-width: 992px) {
+  :root {
+    --stats-vertical-spacing: 1vh;
+    --stats-horizontal-spacing: 1vh;
+    --error-code-size: 12rem;
+    --error-description-size: 3rem;
+    --primary-font-size: 3rem;
+    --secondary-font-size: 2rem;
+  }
+}

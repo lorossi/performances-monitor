@@ -7,6 +7,7 @@ import os
 import json
 import time
 import psutil
+import logging
 import subprocess
 from datetime import datetime
 from flask import Flask, render_template, request, jsonify, url_for
@@ -28,11 +29,20 @@ def runCommand(command):
 # returns color and max value according to the provided value
 # and the color palette (found in the settings file)
 def getColor(value, item, palette):
-    color = palette[item][-1]["color"]  # default color, in case it's not found
+    color = palette["default"]["color"]  # default color, in case it's not found
+    max = palette["default"]["value"] # default max, in case it's not found
+
+    if value not in palette.keys():
+        return color, max
+
     for color in palette[item]:
+        if color == "default":
+            continue
+
         if value <= color["value"]:
             color = color["color"]
             break  # we found it, no need to go further
+
     max = palette[item][-1]["value"]  # max value is the last
     return color, max
 
@@ -46,7 +56,8 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         value = psutil.cpu_percent(interval=dt)
         text = f"{value}%"
         color, max = getColor(value, "cpu", color_palette)
-    except:
+    except Exception as e:
+        logging.warning(e)
         value = "-"
         text = None
         color = None
@@ -64,7 +75,8 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         value = psutil.virtual_memory().percent
         text = f"{value}%"
         color, max = getColor(value, "ram", color_palette)
-    except:
+    except Exception as e:
+        logging.warning(e)
         value = None
         text = "-"
         color = None
@@ -82,7 +94,8 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         value = os.getloadavg()[2]  # 15 minutes average
         text = str(value)
         color, max = getColor(value, "load", color_palette)
-    except:
+    except Exception as e:
+        logging.warning(e)
         value = None
         text = "-"
         color = None
@@ -100,7 +113,8 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         value = psutil.sensors_temperatures()['cpu_thermal'][0][1]
         text = f"{round(value, 1)}°C"
         color, max = getColor(value, "temperature", color_palette)
-    except:
+    except Exception as e:
+        logging.warning(e)
         value = None
         text = "-"
         color = None
@@ -128,7 +142,8 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         value = total / dt / (1024 ** 2)
         text = f"{round(value, 1)} MB/s"
         color, max = getColor(value, "network", color_palette)
-    except:
+    except Exception as e:
+        logging.warning(e)
         value = None
         text = "-"
         color = None
@@ -147,7 +162,8 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         text = runCommand(command).split(" ")[1]
         value = int(text[:-1])
         color, max = getColor(value, "hdd", color_palette)
-    except:
+    except Exception as e:
+        logging.warning(e)
         value = None
         text = "-"
         color = None
@@ -166,7 +182,8 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         text = runCommand(command).split(" ")[1]
         value = int(text[:-1])
         color, max = getColor(value, "exthdd", color_palette)
-    except:
+    except Exception as e:
+        logging.warning(e)
         value = None
         text = "-"
         color = None
@@ -200,7 +217,8 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
             text = "None"
 
         color, max = getColor(value, "overheating", color_palette)
-    except:
+    except Exception as e:
+        logging.warning(e)
         value = None
         text = "-"
         color = None
@@ -232,7 +250,8 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
             text = "None"
 
         color, max = getColor(value, "undervoltage", color_palette)
-    except:
+    except Exception as e:
+        logging.warning(e)
         value = None
         text = "-"
         color = None
@@ -254,7 +273,8 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         value = float(output)  # convert to number
         text = output
         color, max = getColor(value, "corevoltage", color_palette)
-    except:
+    except Exception as e:
+        logging.warning(e)
         value = None
         text = "-"
         color = None
@@ -274,7 +294,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         value = len(output)
         text = str(value)
         color, max = getColor(value, "sshconnections", color_palette)
-    except:
+    except Exception as e:
 
         value = None
         text = "-"
@@ -304,8 +324,8 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         value = len(ips)
         text = str(value)
         color, max = getColor(value, "sshconnections", color_palette)
-    except:
-
+    except Exception as e:
+        logging.warning(e)
         value = None
         text = "-"
         color = None
@@ -326,13 +346,13 @@ def getNetwork():
     try:
         command = "hostname -I"
         ip = runCommand(command).split(" ")[0]
-    except:
+    except Exception as e:
         ip = ""
 
     try:
         command = "hostname"
         hostname = runCommand(command)
-    except:
+    except Exception as e:
         hostname = ""
 
     return {
@@ -349,7 +369,22 @@ app = Flask(__name__)
 def index():
     settings = loadSettings()  # loads settings
     # now we load body background color and stats text color
-    return render_template('index.html')
+    return render_template("index.html")
+
+# error 404 page
+@app.errorhandler(404)
+def not_found_error(error):
+    logging.error(error)
+    return render_template("error.html", errorcode=404,
+                           errordescription="page not found"), 404
+
+
+# error 500 page
+@app.errorhandler(Exception)
+def not_found_error(error):
+    logging.error(error)
+    return render_template("error.html", errorcode=500,
+                           errordescription="internal server error"), 500
 
 
 # endpoint to get stats
@@ -358,8 +393,8 @@ def get_stats():
     # if dt parameter wasn't sent, we default it to 1 second
     try:
         # msec string to seconds
-        dt = float(request.form['dt']) / 1000
-    except:
+        dt = float(request.form["dt"]) / 1000
+    except Exception as e:
         dt = 1
 
     settings = loadSettings()
@@ -369,7 +404,14 @@ def get_stats():
     return jsonify(stats)
 
 
-# get stats api
+# endpoint to get infos about network
+@app.route("/getnetwork/", methods=['POST'])
+def get_network():
+    network = getNetwork()
+    return jsonify(network)
+
+
+# api endpoint to get stats
 @app.route("/api/stats", methods=['GET'])
 def api_stats():
     return_dict = {}
@@ -377,7 +419,7 @@ def api_stats():
     started = datetime.now()
     try:
         dt = float(request.args.get("dt")) / 1000
-    except:
+    except Exception as e:
         dt = 1
 
     settings = loadSettings()
@@ -390,7 +432,7 @@ def api_stats():
 
     ended = datetime.now()
     elapsed = (ended - started).total_seconds() * 1000
-    print(elapsed)
+
     return_dict["info"] = {
         "time": datetime.now().isoformat(),
         "elapsed": elapsed,
@@ -401,14 +443,44 @@ def api_stats():
     return jsonify(return_dict)
 
 
-# endpoint to get infos about network
-@app.route("/getnetwork/", methods=['POST'])
-def get_network():
-    network = getNetwork()
-    return jsonify(network)
+# api endpoint to get temperature
+@app.route("/api/temperature", methods=['GET'])
+def api_temperature():
+    return_dict = {}
+
+    started = datetime.now()
+    value = psutil.sensors_temperatures()['cpu_thermal'][0][1]
+    text = f"{value}°C"
+    ended = datetime.now()
+    elapsed = (ended - started).total_seconds() * 1000
+
+    return_dict = {
+        "time": datetime.now().isoformat(),
+        "elapsed": elapsed,
+        "request_ip": request.remote_addr,
+        "temperature": value,
+        "temperature_formatted": text
+    }
+
+    return jsonify(return_dict)
+
+
+# api endpoint to current time temperature
+@app.route("/api/time", methods=['GET'])
+def api_time():
+    return_dict = {
+        "time": datetime.now().isoformat(),
+        "request_ip": request.remote_addr,
+    }
+
+    return jsonify(return_dict)
 
 
 if __name__ == '__main__':
+    logging.basicConfig(filename="performances-monitor.log",
+                        level=logging.ERROR, filemode="w",
+                        format='%(asctime)s %(levelname)s %(message)s')
+
     settings = loadSettings()
     app.run(host=settings["Server"]["host"],
             port=settings["Server"]["port"],

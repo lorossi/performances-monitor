@@ -1,0 +1,19 @@
+.errorcontainer {
+  margin-top: 20vh;
+  width: 100vw;
+  text-align: center;
+}
+
+.errorcontainer div {
+  width: 100%;
+}
+
+
+
+#errorcode {
+  font-size: var(--error-code-size);
+}
+
+#errordescription, #goback {
+  font-size: var(--error-description-size);
+}

@@ -6,6 +6,10 @@
     "debug": true
   },
   "Colormap" : {
+    "default" : {
+      "value" : 0,
+      "color": "#60a917"
+    },
     "cpu" : [
       {
         "value": 40,
@@ -62,19 +66,19 @@
     ],
     "network" : [
       {
-        "value": 5,
+        "value": 10,
         "color": "#60a917"
       },
       {
-        "value": 10,
+        "value": 20,
         "color": "#e3c800"
       },
       {
-        "value": 30,
+        "value": 40,
         "color": "#fa6800"
       },
       {
-        "value": 80,
+        "value": 100,
         "color": "#a20025"
       }
     ],
