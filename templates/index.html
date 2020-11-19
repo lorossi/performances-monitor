@@ -9,6 +9,7 @@
   <meta name="author" content="Lorenzo Rossi">
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/loadingicon.css') }}">
 
   <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
@@ -25,10 +26,6 @@
     @font-face {
       font-family: RobotoRegular;
       src: url("{{ url_for('static', filename='fonts/Roboto-Regular.ttf') }}");
-    }
-
-    :root {
-      --background-color: {{ background_color }};
     }
   </style>
 
@@ -49,6 +46,9 @@
       </div>
       <div class="network" id="symbol">
       </div>
+    </div>
+    <div class="loadingicon">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
     </div>
     <div class="statscontainer">
       <div class="stat" id="cpu">

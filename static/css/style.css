@@ -1,9 +1,15 @@
 :root {
   --stats-vertical-spacing: 2vh;
   --stats-horizontal-spacing: 2vh;
-  --text-color: "#000000";
-  --error-color: "#E64A19";
-  --ok-color: "#388E3C";
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+  --border-radius: 2px;
+  --main-bg-color: #F8F8F8;
+  --text-color: #000000;
+  --error-color: #E64A19;
+  --ok-color: #388E3C;
+  --loading-color: #969696;
+  --error-symbol: ✗;
+  --ok-symbol: ✓;
 }
 
 html * {
@@ -12,14 +18,14 @@ html * {
 }
 
 body {
-  background-color: var(--background-color); /* passed by flask */
+  background-color: var(--main-bg-color);
   color: var(--text-color);
   font-size: 62.5%;
-  font-family: RobotoMedium;
+  font-family: RobotoLight;
 }
 
 .errormessage {
-  background-color: var(--background-color); /* passed by flask */
+  background-color: var(--main-bg-color);
   display: none;
   position: fixed;
   top: 50%;
@@ -32,14 +38,14 @@ body {
   padding: 1.5rem;
   z-index: 100;
 
-  border-radius: 3px;
-  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.85);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
 }
 
 .closebutton {
   display: inline-block;
   border: 1px solid black;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   font-size: 1rem;
   margin-top: 1.5rem;
   padding: 0.25rem;
@@ -63,7 +69,7 @@ body {
   font-size: 1.25rem;
   vertical-align: middle;
   border-bottom: 1px solid grey;
-  box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.5);
+  box-shadow: var(--shadow);
 }
 
 .network, .network p {
@@ -89,7 +95,7 @@ body {
 }
 
 div.stat {
-  color: var(--background-color); /* passed by flask */
+  color: var(--main-bg-color);
   min-width: 100px;
   max-width: 400px;
   min-height: 100px;
@@ -104,8 +110,8 @@ div.stat {
   justify-content: center;
   align-items: center;
 
-  border-radius: 3px;
-  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.85);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
 }
 
 .stat p {

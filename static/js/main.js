@@ -7,7 +7,7 @@ $(document).ready(function() {
 	refresh_interval = 5000;
 	dt = 2000;
 
-	getStats(250);
+	getStats(500);
 	getNetwork();
 
 	setInterval(getStats, refresh_interval, dt);
@@ -22,7 +22,7 @@ $(document).ready(function() {
 // the only way i found to access css variables
 function getCssProperty(property) {
   let css_property = $(":root").css(property);
-  return css_property.split(" ").join("").slice(1, -1);
+  return css_property.split(" ").join("");
 }
 
 function getNetwork() {
@@ -67,13 +67,21 @@ function getStats(dt) {
 					}
 				}
 				if (any) {
+					// we found at least one stat - everything is working!
 					let text_color = getCssProperty("--text-color");
 					let ok_color = getCssProperty("--ok-color");
+					let ok_symbol = getCssProperty("--ok-symbol");
 					// reset the text to black
 					$(".networkcontainer").css("color", text_color);
 					// set the indicator to a green checkmark
-					$(".network#symbol").html("✓");
+					$(".network#symbol").html(ok_symbol);
 					$(".network#symbol").css("color", ok_color);
+					// hide loading animation
+					if ($(".loadingicon").css("opacity") > 0) {
+						$(".loadingicon").fadeOut("fast", function() {
+							$(".loadingicon").css("display", "none");
+						});
+					}
 					// hide error message (if any)
 					if (error_shown) {
 						$(".errormessage").css({
@@ -89,13 +97,17 @@ function getStats(dt) {
 			if (!error_shown) {
         // the only way i found to access css variables
         let error_color = getCssProperty("--error-color");
+				let error_symbol = getCssProperty("--error-symbol");
 				// set the indicator to a red cross
-				$(".network#symbol").html("✗");
+				$(".network#symbol").html(error_symbol);
 				$(".network#symbol").css("color", error_color);
 				// set the text to deep red
 				$(".networkcontainer").css("color", error_color);
 				// show error message
 				$(".errormessage").css("display", "inline-block");
+				// show loading animation
+				$(".loadingicon").css("display", "block");
+				$(".loadingicon").fadeIn("fast");
 				error_shown = true;
 			}
 		}
