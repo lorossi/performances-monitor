@@ -7,6 +7,8 @@ For some stats *(core voltage, overheating, undervoltage)* it uses the command `
 
 *This program won't work on Windows.* If you need to do so, you might want to look into [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux) (that's basically reverse Wine).
 
+The code is PEP-8 compliant.
+
 ## Screenshots
 
 ## Installation
