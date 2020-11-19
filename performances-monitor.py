@@ -323,9 +323,6 @@ def getNetwork():
         "hostname": hostname
     }
 
-# return system time
-
-
 app = Flask(__name__)
 
 # index
@@ -378,7 +375,7 @@ def api_stats():
 
     ended = datetime.now()
     elapsed = (ended - started).total_seconds() * 1000
-
+    print(elapsed)
     return_dict["info"] = {
         "time": datetime.now().isoformat(),
         "elapsed": elapsed,
@@ -387,19 +384,6 @@ def api_stats():
     }
 
     return jsonify(return_dict)
-
-# get time api
-@app.route("/api/time", methods=['GET'])
-def api_stats():
-    return_dict["info"] = {
-        "time": datetime.now().isoformat(),
-        "request_ip": request.remote_addr,
-    }
-
-    return jsonify(return_dict)
-
-# get system time api
-
 # endpoint to get infos about network
 @app.route("/getnetwork/", methods=['POST'])
 def get_network():
