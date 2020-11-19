@@ -26,7 +26,7 @@ body {
   padding-bottom: 0.75rem;
   padding-left: var(--stats-horizontal-spacing);
   height: auto;
-  font-size: 1rem;
+  font-size: 1.5rem;
   vertical-align: middle;
   border-bottom: 1px solid grey;
   box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.5);
@@ -61,7 +61,7 @@ div.stat {
   position: relative;
   border-radius: 3px;
 
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -85,22 +85,35 @@ div.stat {
   }
 
   .networkcontainer {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 
   .statscontainer {
     margin-top: var(--stats-vertical-spacing);
     font-size: 3rem;
-  }
-
-  body {
-    background-color: red;
+    max-width: 1600px;
   }
 
   div.stat {
+    display: none;
     width: calc(33% - var(--stats-vertical-spacing)/2);
     height: 30vh;
-    max-width: 500px;
-    max-height: 1000px;
+    max-width: 400px;
+    max-height: 500px;
+  }
+}
+
+@media only screen and (min-width: 1399px) {
+  .statscontainer {
+    justify-content: flex-start;
+  }
+
+  div.stat {
+    display: none;
+    width: calc(25% - var(--stats-vertical-spacing)/2);
+    height: 30vh;
+    max-width: 400px;
+    max-height: 500px;
+    margin-right: var(--stats-horizontal-spacing);
   }
 }
