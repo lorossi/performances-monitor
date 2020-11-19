@@ -10,7 +10,7 @@ For some stats *(core voltage, overheating, undervoltage)* it uses the command `
 
 ## Installation
 1. Clone the repo in any folder
-2. Install the required dependencies using `pip -r requirements.txt`
+2. Install the required dependencies using `pip install -r requirements.txt`
 3. Customize the setting file located in *src/settings.json* according to your needs
 4. Run the python script via `python3 performances-monitor.py`
 5. There you go! The webpage will now be viewable inside your browser
