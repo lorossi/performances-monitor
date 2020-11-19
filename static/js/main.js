@@ -32,10 +32,18 @@ function getStats(dt) {
     complete : function(response) {
       if (response.status == 200) {
         for (let property in response.responseJSON) {
-          $(`#${property} .statvalue`).text(response.responseJSON[property].text);
-          $(`#${property}`).css({
-            "background-color": response.responseJSON[property].color
-          });
+          if (response.responseJSON[property].value != null) { // fucking js and its fucking thruty shit 
+            $(`#${property} .statvalue`).text(response.responseJSON[property].text);
+            $(`#${property}`).css({
+              "display": "flex",
+              "background-color": response.responseJSON[property].color
+            });
+          } else {
+            console.log("hiding", property)
+            $(`#${property}`).css({
+              "display": "none"
+            });
+          }
         }
       }
     }
