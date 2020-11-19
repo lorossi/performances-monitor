@@ -21,7 +21,7 @@ body {
 .errormessage {
   background-color: var(--background-color); /* passed by flask */
   display: none;
-  position: absolute;
+  position: fixed;
   top: 50%;
   right: 50%;
   transform: translate(50%,-50%);
@@ -148,7 +148,7 @@ div.stat {
   div.stat {
     display: none;
     width: calc(33% - var(--stats-vertical-spacing)/2);
-    height: 30vh;
+    height: 20vh;
     max-width: 400px;
     max-height: 500px;
   }
@@ -162,7 +162,6 @@ div.stat {
   div.stat {
     display: none;
     width: calc(25% - var(--stats-vertical-spacing)/2 - var(--stats-horizontal-spacing));
-    height: 30vh;
     max-width: 400px;
     max-height: 500px;
     margin-right: var(--stats-horizontal-spacing);
