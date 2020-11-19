@@ -16,6 +16,10 @@ For some stats *(core voltage, overheating, undervoltage)* it uses the command `
 4. Run the python script via `python3 performances-monitor.py`
 5. There you go! The webpage will now be viewable inside your browser
 
+## Api endpoints
+- `/api/stats?dt=[msec]` to get all the stats. The bigger the `dt` parameter is, the more the request will take but it will be more accurate
+- `api/time` to get the machine current time
+
 ## Credits
 The font used is [_Roboto_ by _Christian Robertson_.](https://github.com/google/roboto/)
 
