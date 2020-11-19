@@ -1,7 +1,7 @@
 let refresh_interval;
 
 $(document).ready(function() {
-  refresh_interval = 2000;
+  refresh_interval = 5000;
   dt = 2000;
 
   getStats(250);

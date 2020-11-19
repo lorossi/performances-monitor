@@ -1,3 +1,8 @@
+:root {
+  --stats-vertical-spacing: 2vh;
+  --stats-horizontal-spacing: 2vh;
+}
+
 html * {
   padding: 0;
   margin: 0;
@@ -6,51 +11,62 @@ html * {
 body {
   font-size: 62.5%;
   font-family: RobotoMedium;
-  font-size: 1.5rem;
 }
 
-.networkcontainer, .statscontainer {
-  margin-left: 5vw;
-  margin-right: 5vw;
-  width: 90vw;
+.separator {
+  display: inline;
+}
+
+.separator::after {
+  content: "-";
 }
 
 .networkcontainer {
-  margin-top: 8vh;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: var(--stats-horizontal-spacing);
+  height: auto;
+  font-size: 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid grey;
+  box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.5);
 }
 
-.network {
-  line-height: 120%;
+.network, .network p {
+  display: inline;
 }
 
 .statscontainer {
-  margin-top: 8vh;
+  margin-top: var(--stats-vertical-spacing);
+  margin-left: var(--stats-horizontal-spacing);
+  margin-right: var(--stats-horizontal-spacing);
+  width: calc(100vw - 2 * var(--stats-horizontal-spacing));
+
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  font-size: 1.5rem;
 }
 
 div.stat {
   min-width: 100px;
-  max-width: 300px;
-  width: 48%;
-  height: 19vh;
-  margin-bottom: 3vh;
+  max-width: 400px;
+  min-height: 100px;
+  max-height: 140px;
+  width: calc(50% - var(--stats-vertical-spacing)/2);
+  height: 25vh;
+  margin-bottom: var(--stats-vertical-spacing);
   position: relative;
+  border-radius: 3px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  box-shadow: 3px 3px 3px 1px rgba(0,0,0,0.68);
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.85);
 }
 
 .stat p {
@@ -60,4 +76,31 @@ div.stat {
 
 .stat p:first-of-type {
   padding-bottom: 0.6rem;
+}
+
+@media only screen and (min-width: 992px) {
+  :root {
+    --stats-vertical-spacing: 5vh;
+    --stats-horizontal-spacing: 5vh;
+  }
+
+  .networkcontainer {
+    font-size: 2rem;
+  }
+
+  .statscontainer {
+    margin-top: var(--stats-vertical-spacing);
+    font-size: 3rem;
+  }
+
+  body {
+    background-color: red;
+  }
+
+  div.stat {
+    width: calc(33% - var(--stats-vertical-spacing)/2);
+    height: 30vh;
+    max-width: 500px;
+    max-height: 1000px;
+  }
 }
