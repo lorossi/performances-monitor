@@ -1,0 +1,140 @@
+{
+  "Server": {
+    "host": "0.0.0.0",
+    "port": 4567,
+    "debug": true,
+    "external_hdd_path": "/mnt/ext_hdd/"
+  },
+  "Page" : {
+    "background-color":	"#FFFFFF",
+    "default-color": "#388E3C"
+  },
+  "Colormap" : {
+    "cpu" : [
+      {
+        "value": 40,
+        "color": "#388E3C"
+      },
+      {
+        "value": 60,
+        "color": "#FFA000"
+      },
+      {
+        "value": 80,
+        "color": "#F57F17"
+      },
+      {
+        "value": 100,
+        "color": "#E64A19"
+      }
+    ],
+    "ram" : [
+      {
+        "value": 40,
+        "color": "#388E3C"
+      },
+      {
+        "value": 60,
+        "color": "#FFA000"
+      },
+      {
+        "value": 80,
+        "color": "#F57F17"
+      },
+      {
+        "value": 100,
+        "color": "#E64A19"
+      }
+    ],
+    "network" : [
+      {
+        "value": 5,
+        "color": "#388E3C"
+      },
+      {
+        "value": 10,
+        "color": "#FFA000"
+      },
+      {
+        "value": 30,
+        "color": "#F57F17"
+      },
+      {
+        "value": 80,
+        "color": "#E64A19"
+      }
+    ],
+    "temperature" : [
+      {
+        "value": 45,
+        "color": "#388E3C"
+      },
+      {
+        "value": 55,
+        "color": "#FFA000"
+      },
+      {
+        "value": 65,
+        "color": "#F57F17"
+      },
+      {
+        "value": 100,
+        "color": "#E64A19"
+      }
+    ],
+    "hdd" : [
+      {
+        "value": 70,
+        "color": "#388E3C"
+      },
+      {
+        "value": 80,
+        "color": "#FFA000"
+      },
+      {
+        "value": 90,
+        "color": "#F57F17"
+      },
+      {
+        "value": 100,
+        "color": "#E64A19"
+      }
+    ],
+    "exthdd" : [
+      {
+        "value": 70,
+        "color": "#388E3C"
+      },
+      {
+        "value": 80,
+        "color": "#FFA000"
+      },
+      {
+        "value": 90,
+        "color": "#F57F17"
+      },
+      {
+        "value": 100,
+        "color": "#E64A19"
+      }
+    ],
+    "overheating" : [
+      {
+        "value": 0,
+        "color": "#388E3C"
+      },
+      {
+        "value": 1,
+        "color": "#FFA000"
+      },
+      {
+        "value": 2,
+        "color": "#F57F17"
+      },
+      {
+        "value": 3,
+        "color": "#E64A19"
+      }
+    ]
+  }
+}
