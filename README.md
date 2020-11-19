@@ -25,5 +25,7 @@ The code is PEP-8 compliant.
 ## Credits
 The font used is [_Roboto_ by _Christian Robertson_.](https://github.com/google/roboto/)
 
+Loading icon by [loading.io](https://loading.io/css/)
+
 ## Licensing
 This project is distributed under Attribution 4.0 International (CC BY 4.0) license.
