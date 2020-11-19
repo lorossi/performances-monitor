@@ -1,0 +1,63 @@
+html * {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-size: 62.5%;
+  font-family: RobotoMedium;
+  font-size: 1.5rem;
+}
+
+.networkcontainer, .statscontainer {
+  margin-left: 5vw;
+  margin-right: 5vw;
+  width: 90vw;
+}
+
+.networkcontainer {
+  margin-top: 8vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.network {
+  line-height: 120%;
+}
+
+.statscontainer {
+  margin-top: 8vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.stat {
+  min-width: 100px;
+  max-width: 300px;
+  width: 48%;
+  height: 19vh;
+  margin-bottom: 3vh;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 3px 3px 3px 1px rgba(0,0,0,0.68);
+}
+
+.stat p {
+  width: 100%;
+  text-align: center;
+}
+
+.stat p:first-of-type {
+  padding-bottom: 0.6rem;
+}

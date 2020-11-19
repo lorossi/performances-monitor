@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="description" content="Webpage description goes here" />
+  <meta charset="utf-8">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Lorenzo Rossi">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chartist.min.css') }}">
+
+  <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/chartist.min.js') }}" ></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+  <style>
+    @font-face {
+      font-family: RobotoLight;
+      src: url("{{ url_for('static', filename='fonts/Roboto-Light.ttf') }}");
+    }
+    @font-face {
+      font-family: RobotoMedium;
+      src: url("{{ url_for('static', filename='fonts/Roboto-Medium.ttf') }}");
+    }
+    @font-face {
+      font-family: RobotoRegular;
+      src: url("{{ url_for('static', filename='fonts/Roboto-Regular.ttf') }}");
+    }
+
+    body {
+      background-color: {{ background_color }};
+    }
+
+    .stat {
+      background-color: {{ default_color }};
+      color: {{ background_color }};
+    }
+  </style>
+
+</head>
+
+  <body>
+    <div class="networkcontainer">
+      <div class="network" id="ip">
+        <p class="statvalue"></p>
+      </div>
+      <div class="network" id="hostname">
+        <p class="statvalue"></p>
+      </div>
+    </div>
+    <div class="statscontainer">
+      <div class="stat" id="cpu">
+        <p class="statname">CPU usage</p>
+        <p class="statvalue">-</p>
+      </div>
+      <div class="stat" id="ram">
+        <p class="statname">RAM usage</p>
+        <p class="statvalue">-</p></div>
+      <div class="stat" id="network">
+        <p class="statname">Network</p>
+        <p class="statvalue">-</p>
+      </div>
+      <div class="stat" id="temperature">
+        <p class="statname">Temperature</p>
+        <p class="statvalue">-</p>
+      </div>
+      <div class="stat" id="hdd">
+        <p class="statname">HDD</p>
+        <p class="statvalue">-</p>
+      </div>
+      <div class="stat" id="exthdd">
+        <p class="statname">ext HDD</p>
+        <p class="statvalue">-</p>
+      </div>
+    </div>
+  </body>
+</html>
