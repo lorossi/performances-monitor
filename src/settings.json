@@ -2,225 +2,220 @@
   "Server": {
     "host": "0.0.0.0",
     "port": 4567,
-    "debug": true,
     "external_hdd_path": "/mnt/ext_hdd/",
-    "demo_mode": false
-  },
-  "Page" : {
-    "background-color":	"#FFFFFF",
-    "default-color": "#388E3C"
+    "debug": true
   },
   "Colormap" : {
     "cpu" : [
       {
         "value": 40,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 60,
-        "color": "#FFA000"
+        "color": "#e3c800"
       },
       {
         "value": 80,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 100,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ],
     "ram" : [
       {
         "value": 40,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 60,
-        "color": "#FFA000"
+        "color": "#e3c800"
       },
       {
         "value": 80,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 100,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ],
     "load" : [
       {
         "value": 0.75,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 0.8,
-        "color": "#FFA000"
+        "color": "#e3c800"
       },
       {
         "value": 1,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 2,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ],
     "network" : [
       {
         "value": 5,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 10,
-        "color": "#FFA000"
+        "color": "#e3c800"
       },
       {
         "value": 30,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 80,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ],
     "temperature" : [
       {
         "value": 45,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 60,
-        "color": "#FFA000"
+        "color": "#e3c800"
       },
       {
         "value": 75,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 100,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ],
     "corevoltage" : [
       {
         "value": 0.8,
-        "color": "#E64A19"
+        "color": "#a20025"
       },
       {
         "value": 1.4,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 1.35,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 2,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ],
     "hdd" : [
       {
         "value": 70,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 80,
-        "color": "#FFA000"
+        "color": "#e3c800"
       },
       {
         "value": 90,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 100,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ],
     "exthdd" : [
       {
         "value": 70,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 80,
-        "color": "#FFA000"
+        "color": "#e3c800"
       },
       {
         "value": 90,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 100,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ],
     "overheating" : [
       {
         "value": 0,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 1,
-        "color": "#FFA000"
+        "color": "#e3c800"
       },
       {
         "value": 2,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 3,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ],
     "undervoltage" : [
       {
         "value": 0,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 1,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 2,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ],
     "sshconnections" : [
       {
         "value": 0,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 3,
-        "color": "#FFA000"
+        "color": "#e3c800"
       },
       {
         "value": 5,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 10,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ],
     "ftpconnections" : [
       {
         "value": 0,
-        "color": "#388E3C"
+        "color": "#60a917"
       },
       {
         "value": 3,
-        "color": "#FFA000"
+        "color": "#e3c800"
       },
       {
         "value": 5,
-        "color": "#F57F17"
+        "color": "#fa6800"
       },
       {
         "value": 10,
-        "color": "#E64A19"
+        "color": "#a20025"
       }
     ]
   }
