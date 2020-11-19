@@ -1,5 +1,6 @@
 let refresh_interval;
 let error_shown;
+let dt;
 
 $(document).ready(function() {
 	error_shown = false;
@@ -20,7 +21,7 @@ $(document).ready(function() {
 
 // the only way i found to access css variables
 function getCssProperty(property) {
-  let css_property = $(":root").css(property)
+  let css_property = $(":root").css(property);
   return css_property.split(" ").join("").slice(1, -1);
 }
 
