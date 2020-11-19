@@ -1,6 +1,9 @@
 :root {
   --stats-vertical-spacing: 2vh;
   --stats-horizontal-spacing: 2vh;
+  --text-color: "#000000";
+  --error-color: "#E64A19";
+  --ok-color: "#388E3C";
 }
 
 html * {
@@ -9,8 +12,39 @@ html * {
 }
 
 body {
+  background-color: var(--background-color); /* passed by flask */
+  color: var(--text-color);
   font-size: 62.5%;
   font-family: RobotoMedium;
+}
+
+.errormessage {
+  background-color: var(--background-color); /* passed by flask */
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%,-50%);
+  height: auto;
+  width: 70vw;
+  max-width: 300px;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  z-index: 100;
+
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.85);
+}
+
+.closebutton {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 3px;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  padding: 0.25rem;
+  float: right;
+  user-select: none;
 }
 
 .separator {
@@ -26,7 +60,7 @@ body {
   padding-bottom: 0.75rem;
   padding-left: var(--stats-horizontal-spacing);
   height: auto;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   vertical-align: middle;
   border-bottom: 1px solid grey;
   box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.5);
@@ -34,6 +68,10 @@ body {
 
 .network, .network p {
   display: inline;
+}
+
+.networkcontainer #symbol {
+  margin-left: 0.25rem;
 }
 
 .statscontainer {
@@ -51,21 +89,22 @@ body {
 }
 
 div.stat {
+  color: var(--background-color); /* passed by flask */
   min-width: 100px;
   max-width: 400px;
   min-height: 100px;
   max-height: 140px;
   width: calc(50% - var(--stats-vertical-spacing)/2);
-  height: 25vh;
+  height: 20vh;
   margin-bottom: var(--stats-vertical-spacing);
   position: relative;
-  border-radius: 3px;
 
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  border-radius: 3px;
   box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.85);
 }
 
@@ -82,6 +121,18 @@ div.stat {
   :root {
     --stats-vertical-spacing: 5vh;
     --stats-horizontal-spacing: 5vh;
+  }
+
+  .errormessage {
+    font-size: 1.5rem;
+    width: 50vw;
+    max-width: 600px;
+  }
+
+  .closebutton {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    padding: 0.5rem;
   }
 
   .networkcontainer {
