@@ -46,6 +46,24 @@
         "color": "#E64A19"
       }
     ],
+    "load" : [
+      {
+        "value": 0.75,
+        "color": "#388E3C"
+      },
+      {
+        "value": 0.8,
+        "color": "#FFA000"
+      },
+      {
+        "value": 1,
+        "color": "#F57F17"
+      },
+      {
+        "value": 2,
+        "color": "#E64A19"
+      }
+    ],
     "network" : [
       {
         "value": 5,
@@ -133,6 +151,42 @@
       },
       {
         "value": 3,
+        "color": "#E64A19"
+      }
+    ],
+    "sshconnections" : [
+      {
+        "value": 0,
+        "color": "#388E3C"
+      },
+      {
+        "value": 3,
+        "color": "#FFA000"
+      },
+      {
+        "value": 5,
+        "color": "#F57F17"
+      },
+      {
+        "value": 10,
+        "color": "#E64A19"
+      }
+    ],
+    "ftpconnections" : [
+      {
+        "value": 0,
+        "color": "#388E3C"
+      },
+      {
+        "value": 3,
+        "color": "#FFA000"
+      },
+      {
+        "value": 5,
+        "color": "#F57F17"
+      },
+      {
+        "value": 10,
         "color": "#E64A19"
       }
     ]
