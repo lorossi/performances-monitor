@@ -38,8 +38,7 @@ def getColor(value, item, palette):
 
 
 # return stats about the system
-def getStats(color_palette, dt=1, default_color="#4CAF50",
-             background_color="#E8E8E8", ext_hdd_path="/mnt/ext_hdd/"):
+def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
     return_dict = {}
 
     # section about getting cpu usage
@@ -50,7 +49,7 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
     except:
         value = "-"
         text = None
-        color = default_color
+        color = None
         max = 0
 
     return_dict["cpu"] = {
@@ -68,7 +67,7 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
     except:
         value = None
         text = "-"
-        color = default_color
+        color = None
         max = 0
 
     return_dict["ram"] = {
@@ -86,7 +85,7 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
     except:
         value = None
         text = "-"
-        color = default_color
+        color = None
         max = 0
 
     return_dict["load"] = {
@@ -104,7 +103,7 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
     except:
         value = None
         text = "-"
-        color = default_color
+        color = None
         max = 0
 
     return_dict["temperature"] = {
@@ -132,7 +131,7 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
     except:
         value = None
         text = "-"
-        color = default_color
+        color = None
         max = 0
 
     return_dict["network"] = {
@@ -151,7 +150,7 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
     except:
         value = None
         text = "-"
-        color = default_color
+        color = None
         max = 0
 
     return_dict["hdd"] = {
@@ -170,7 +169,7 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
     except:
         value = None
         text = "-"
-        color = default_color
+        color = None
         max = 0
 
     return_dict["exthdd"] = {
@@ -204,7 +203,7 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
     except:
         value = None
         text = "-"
-        color = default_color
+        color = None
         max = 0
 
     return_dict["overheating"] = {
@@ -236,7 +235,7 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
     except:
         value = None
         text = "-"
-        color = default_color
+        color = None
         max = 0
 
     return_dict["undervoltage"] = {
@@ -258,7 +257,7 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
     except:
         value = None
         text = "-"
-        color = default_color
+        color = None
         max = 0
 
     return_dict["corevoltage"] = {
@@ -279,7 +278,7 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
 
         value = None
         text = "-"
-        color = default_color
+        color = None
         max = 0
 
     return_dict["sshconnections"] = {
@@ -293,21 +292,23 @@ def getStats(color_palette, dt=1, default_color="#4CAF50",
     try:
         command = "netstat -n"
         output = runCommand(command).split("\n")[1:]
-        value = 0
+        ips = []
         for line in output:
             # remove multiple spaces and then split every word
             line = " ".join(line.split()).split(" ")
             # check if ":21" (ftp port) in ip
             if ":21" in line[3]:
-                value += 1
+                ips.append(line[3])
 
+        ips = list(set(ips)) # remove duplicates
+        value = len(ips)
         text = str(value)
         color, max = getColor(value, "sshconnections", color_palette)
     except:
 
         value = None
         text = "-"
-        color = default_color
+        color = None
         max = 0
 
     return_dict["ftpconnections"] = {
@@ -348,8 +349,7 @@ app = Flask(__name__)
 def index():
     settings = loadSettings()  # loads settings
     # now we load body background color and stats text color
-    background_color = settings["Page"]["background-color"]
-    return render_template('index.html', background_color=background_color)
+    return render_template('index.html')
 
 
 # endpoint to get stats
@@ -363,35 +363,27 @@ def get_stats():
         dt = 1
 
     settings = loadSettings()
-    background_color = settings["Page"]["background-color"]
-    default_color = settings["Page"]["default-color"]
     color_palette = settings["Colormap"]
     external_hdd_path = settings["Server"]["external_hdd_path"]
-    stats = getStats(color_palette, ext_hdd_path=external_hdd_path,
-                     background_color=background_color,
-                     default_color=default_color, dt=dt)
+    stats = getStats(color_palette, ext_hdd_path=external_hdd_path, dt=dt)
     return jsonify(stats)
 
 
 # get stats api
 @app.route("/api/stats", methods=['GET'])
 def api_stats():
+    return_dict = {}
+
     started = datetime.now()
     try:
         dt = float(request.args.get("dt")) / 1000
     except:
         dt = 1
 
-    return_dict = {}
-
     settings = loadSettings()
-    background_color = settings["Page"]["background-color"]
-    default_color = settings["Page"]["default-color"]
     color_palette = settings["Colormap"]
     external_hdd_path = settings["Server"]["external_hdd_path"]
-    stats = getStats(color_palette, ext_hdd_path=external_hdd_path,
-                     background_color=background_color,
-                     default_color=default_color, dt=dt)
+    stats = getStats(color_palette, ext_hdd_path=external_hdd_path, dt=dt)
     network = getNetwork()
     return_dict["stats"] = stats
     return_dict["network"] = network
