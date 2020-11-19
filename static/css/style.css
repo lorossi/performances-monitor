@@ -110,7 +110,7 @@ div.stat {
 
   div.stat {
     display: none;
-    width: calc(25% - var(--stats-vertical-spacing)/2);
+    width: calc(25% - var(--stats-vertical-spacing)/2 - var(--stats-horizontal-spacing));
     height: 30vh;
     max-width: 400px;
     max-height: 500px;
