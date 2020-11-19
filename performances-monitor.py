@@ -1,3 +1,4 @@
+import os
 import json
 import time
 import psutil
@@ -25,38 +26,56 @@ def getColor(value, item, palette):
 def getStats(color_palette, dt=1, default_color="#4CAF50", background_color="#E8E8E8", ext_hdd_path="/mnt/ext_hdd/"):
     return_dict = {}
 
-    # section about getting cpu load
+    # section about getting cpu usage
     try:
         cpu_value = psutil.cpu_percent(interval=dt)
-        cpu_percent = f"{psutil.cpu_percent(interval=dt)}%"
+        cpu_text = f"{psutil.cpu_percent(interval=dt)}%"
         color, max = getColor(cpu_value, "cpu", color_palette)
     except:
-        cpu_percent = None
+        cpu_text = None
         cpu_value = "-"
         color = default_color
         max = 0
 
     return_dict["cpu"] = {
         "value": cpu_value,
-        "text": cpu_percent,
+        "text": cpu_text,
         "color": color,
         "max": max
     }
 
-    # section about getting ram load
+    # section about getting ram usage
     try:
         ram_value = psutil.virtual_memory().percent
-        ram_percent =  f"{psutil.virtual_memory().percent}%"
+        ram_text =  f"{psutil.virtual_memory().percent}%"
         color, max = getColor(ram_value, "ram", color_palette)
     except:
         ram_value = None
-        ram_percent = "-"
+        ram_text = "-"
         color = default_color
         max = 0
 
     return_dict["ram"] = {
         "value": ram_value,
-        "text": ram_percent,
+        "text": ram_text,
+        "color": color,
+        "max": max
+    }
+
+    # section about getting system load (15 minutes)
+    try:
+        load_value = os.getloadavg()[2] # 15 minutes
+        load_text = str(os.getloadavg()[2])
+        color, max = getColor(load_value, "load", color_palette)
+    except:
+        load_value = None
+        load_text = "-"
+        color = default_color
+        max = 0
+
+    return_dict["load"] = {
+        "value": load_value,
+        "text": load_text,
         "color": color,
         "max": max
     }
@@ -153,16 +172,16 @@ def getStats(color_palette, dt=1, default_color="#4CAF50", background_color="#E8
         int_output = int(output, 16) # convert to number
         if (int_output == 0): # if zero, everthing is ok
             overheating_value = 0
-            overheating_text = "none"
+            overheating_text = "None"
         elif (int_output & 0x4): # bit masking
             overheating_value = 3
-            overheating_text = "currently throttled"
+            overheating_text = "Currently throttled"
         elif (int_output & 0x8): # bit masking
             overheating_value = 2
-            overheating_text = "soft temperature limit"
+            overheating_text = "Soft temperature limit"
         elif (int_output & 0x40000): # bit masking
             overheating_value = 1
-            overheating_text = "throttling occurred"
+            overheating_text = "Throttling occurred"
 
         color, max = getColor(overheating_value, "overheating", color_palette)
     except:
@@ -174,6 +193,55 @@ def getStats(color_palette, dt=1, default_color="#4CAF50", background_color="#E8
     return_dict["overheating"] = {
         "value": overheating_value,
         "text": overheating_text,
+        "color": color,
+        "max": max
+    }
+
+    # section about getting active ssh connections
+    try:
+        p = subprocess.Popen("who", stdout=subprocess.PIPE).stdout.read()
+        output = p.decode("utf-8").rstrip().split("\n")[1:]
+        ssh_connections_value = len(output)
+        ssh_connections_text = str(len(output))
+        color, max = getColor(ssh_connections_value, "sshconnections", color_palette)
+    except:
+
+        ssh_connections_value = None
+        ssh_connections_text = "-"
+        color = default_color
+        max = 0
+
+    return_dict["sshconnections"] = {
+        "value": ssh_connections_value,
+        "text": ssh_connections_text,
+        "color": color,
+        "max": max
+    }
+
+    # section about getting active ftp connections
+    try:
+        p = subprocess.Popen("netstat -n".split(" "), stdout=subprocess.PIPE).stdout.read()
+        output = p.decode("utf-8").rstrip().split("\n")[1:]
+        ftp_connections_value = 0
+        for line in output:
+            # remove multiple spaces and then split every word
+            line = " ".join(line.split()).split(" ")
+            # check if ":21" (ftp port) in ip
+            if ":21" in line[3]:
+                ftp_connections_value += 1
+
+        ftp_connections_text = str(ftp_connections_value)
+        color, max = getColor(ftp_connections_value, "sshconnections", color_palette)
+    except:
+
+        ftp_connections_value = None
+        ftp_connections_text = "-"
+        color = default_color
+        max = 0
+
+    return_dict["ftpconnections"] = {
+        "value": ftp_connections_value,
+        "text": ftp_connections_text,
         "color": color,
         "max": max
     }
