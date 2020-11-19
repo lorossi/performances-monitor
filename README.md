@@ -1,5 +1,6 @@
 # Performances monitor
-*Because sometimes opening htop is too much work*
+`Because sometimes opening htop is too much work`
+
 I wanted a quick way to check at any available moment if my RaspberryPi was overheating or the RAM was getting full, so I wrote this webpage.
 
 For some stats *(core voltage, overheating, undervoltage)* it uses the command `vcgencmd`, so it won't work outside Raspbian. For all the others stats, *os* and *psutils* have been used, so it should work on any Linux os (I personally checked Ubuntu but every should work).
