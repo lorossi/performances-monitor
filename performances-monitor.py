@@ -3,6 +3,7 @@ import json
 import time
 import psutil
 import subprocess
+from datetime import datetime
 from flask import Flask, render_template, request, jsonify, url_for
 
 # loads settings from settings file
@@ -28,72 +29,72 @@ def getStats(color_palette, dt=1, default_color="#4CAF50", background_color="#E8
 
     # section about getting cpu usage
     try:
-        cpu_value = psutil.cpu_percent(interval=dt)
-        cpu_text = f"{psutil.cpu_percent(interval=dt)}%"
-        color, max = getColor(cpu_value, "cpu", color_palette)
+        value = psutil.cpu_percent(interval=dt)
+        text = f"{psutil.cpu_percent(interval=dt)}%"
+        color, max = getColor(value, "cpu", color_palette)
     except:
-        cpu_text = None
-        cpu_value = "-"
+        value = "-"
+        text = None
         color = default_color
         max = 0
 
     return_dict["cpu"] = {
-        "value": cpu_value,
-        "text": cpu_text,
+        "value": value,
+        "text": text,
         "color": color,
         "max": max
     }
 
     # section about getting ram usage
     try:
-        ram_value = psutil.virtual_memory().percent
-        ram_text =  f"{psutil.virtual_memory().percent}%"
-        color, max = getColor(ram_value, "ram", color_palette)
+        value = psutil.virtual_memory().percent
+        text =  f"{psutil.virtual_memory().percent}%"
+        color, max = getColor(value, "ram", color_palette)
     except:
-        ram_value = None
-        ram_text = "-"
+        value = None
+        text = "-"
         color = default_color
         max = 0
 
     return_dict["ram"] = {
-        "value": ram_value,
-        "text": ram_text,
+        "value": value,
+        "text": text,
         "color": color,
         "max": max
     }
 
     # section about getting system load (15 minutes)
     try:
-        load_value = os.getloadavg()[2] # 15 minutes
-        load_text = str(os.getloadavg()[2])
-        color, max = getColor(load_value, "load", color_palette)
+        value = os.getloadavg()[2] # 15 minutes
+        text = str(os.getloadavg()[2])
+        color, max = getColor(value, "load", color_palette)
     except:
-        load_value = None
-        load_text = "-"
+        value = None
+        text = "-"
         color = default_color
         max = 0
 
     return_dict["load"] = {
-        "value": load_value,
-        "text": load_text,
+        "value": value,
+        "text": text,
         "color": color,
         "max": max
     }
 
     # section about getting cpu temperature
     try:
-        cpu_temperature_value = psutil.sensors_temperatures()['cpu_thermal'][0][1]
-        cpu_temperature = f"{round(psutil.sensors_temperatures()['cpu_thermal'][0][1], 1)}°C"
-        color, max = getColor(cpu_temperature_value, "temperature", color_palette)
+        value = psutil.sensors_temperatures()['cpu_thermal'][0][1]
+        text = f"{round(psutil.sensors_temperatures()['cpu_thermal'][0][1], 1)}°C"
+        color, max = getColor(value, "temperature", color_palette)
     except:
-        cpu_temperature_value = None
-        cpu_temperature = "-"
+        value = None
+        text = "-"
         color = default_color
         max = 0
 
     return_dict["temperature"] = {
-        "value": cpu_temperature_value,
-        "text": cpu_temperature,
+        "value": value,
+        "text": text,
         "color": color,
         "max": max
     }
@@ -110,18 +111,18 @@ def getStats(color_palette, dt=1, default_color="#4CAF50", background_color="#E8
         # total bytes exchanged
         total = upload + download
         # convert to MB/s
-        network_value = total / dt / (1024 ** 2)
-        network = f"{round(total / dt / (1024 ** 2), 1)} MB/s"
-        color, max = getColor(network_value, "network", color_palette)
+        value = total / dt / (1024 ** 2)
+        text = f"{round(total / dt / (1024 ** 2), 1)} MB/s"
+        color, max = getColor(value, "network", color_palette)
     except:
-        network_value = None
-        network = "-"
+        value = None
+        text = "-"
         color = default_color
         max = 0
 
     return_dict["network"] = {
-        "value": network_value,
-        "text": network,
+        "value": value,
+        "text": text,
         "color": color,
         "max": max
     }
@@ -129,18 +130,18 @@ def getStats(color_palette, dt=1, default_color="#4CAF50", background_color="#E8
     # section about getting free space on main memory
     try:
         p = subprocess.Popen("df / --output=pcent".split(" "), stdout=subprocess.PIPE).stdout.read()
-        free_hdd_space = p.decode("utf-8").rstrip().split(" ")[1]
-        free_hdd_space_value = int(free_hdd_space[:-1])
-        color, max = getColor(free_hdd_space_value, "hdd", color_palette)
+        text = p.decode("utf-8").rstrip().split(" ")[1]
+        value = int(text[:-1])
+        color, max = getColor(value, "hdd", color_palette)
     except:
-        free_hdd_space_value = None
-        free_hdd_space = "-"
+        value = None
+        text = "-"
         color = default_color
         max = 0
 
     return_dict["hdd"] = {
-        "value": free_hdd_space_value,
-        "text": free_hdd_space,
+        "value": value,
+        "text": text,
         "color": color,
         "max": max
     }
@@ -148,51 +149,106 @@ def getStats(color_palette, dt=1, default_color="#4CAF50", background_color="#E8
     # section about getting free space on external hdd (if provided)
     try:
         p = subprocess.Popen(f"df {ext_hdd_path} --output=pcent".split(" "), stdout=subprocess.PIPE).stdout.read()
-        free_ext_hdd_space = p.decode("utf-8").rstrip().split(" ")[1]
-        free_ext_hdd_space_value = int(free_hdd_space[:-1])
-        color, max = getColor(free_ext_hdd_space_value, "exthdd", color_palette)
+        text = p.decode("utf-8").rstrip().split(" ")[1]
+        value = int(text[:-1])
+        color, max = getColor(value, "exthdd", color_palette)
     except:
-        free_ext_hdd_space_value = None
-        free_ext_hdd_space = "-"
+        value = None
+        text = "-"
         color = default_color
         max = 0
 
     return_dict["exthdd"] = {
-        "value": free_ext_hdd_space_value,
-        "text": free_ext_hdd_space,
+        "value": value,
+        "text": text,
         "color": color,
         "max": max
     }
 
     # section about getting thermal throttling status
+    # uses vcgencmd so it only works on RPi
     try:
         p = subprocess.Popen("vcgencmd get_throttled".split(" "), stdout=subprocess.PIPE).stdout.read()
         # returns something like "throttling=0x..."
         output = p.decode("utf-8").rstrip()[10:] # strip the string
         int_output = int(output, 16) # convert to number
-        if (int_output == 0): # if zero, everthing is ok
-            overheating_value = 0
-            overheating_text = "None"
-        elif (int_output & 0x4): # bit masking
-            overheating_value = 3
-            overheating_text = "Currently throttled"
+        if (int_output & 0x4): # bit masking
+            value = 3
+            text = "Currently throttled"
         elif (int_output & 0x8): # bit masking
-            overheating_value = 2
-            overheating_text = "Soft temperature limit"
+            value = 2
+            text = "Soft temperature limit"
         elif (int_output & 0x40000): # bit masking
-            overheating_value = 1
-            overheating_text = "Throttling occurred"
+            value = 1
+            text = "Throttling occurred"
+        else: # otherwise, everthing is ok
+            value = 0
+            text = "None"
 
-        color, max = getColor(overheating_value, "overheating", color_palette)
+        color, max = getColor(value, "overheating", color_palette)
     except:
-        overheating_value = None
-        overheating_text = "-"
+        value = None
+        text = "-"
         color = default_color
         max = 0
 
     return_dict["overheating"] = {
-        "value": overheating_value,
-        "text": overheating_text,
+        "value": value,
+        "text": text,
+        "color": color,
+        "max": max
+    }
+
+    # section about getting undervoltage
+    # uses vcgencmd so it only works on RPi
+    try:
+        p = subprocess.Popen("vcgencmd get_throttled".split(" "), stdout=subprocess.PIPE).stdout.read()
+        # returns something like "throttling=0x..."
+        output = p.decode("utf-8").rstrip()[10:] # strip the string
+        int_output = int(output, 16) # convert to number
+
+        if (int_output & 0x1): # bit masking
+            value = 2
+            text = "Currently undervoltage"
+        elif (int_output & 0x10000): # bit masking
+            value = 1
+            text = "Undervoltage occurred"
+        else: # otherwise, everthing is ok
+            value = 0
+            text = "None"
+
+        color, max = getColor(value, "undervoltage", color_palette)
+    except:
+        value = None
+        text = "-"
+        color = default_color
+        max = 0
+
+    return_dict["undervoltage"] = {
+        "value": value,
+        "text": text,
+        "color": color,
+        "max": max
+    }
+
+    # section about getting core voltage
+    # uses vcgencmd so it only works on RPi
+    try:
+        p = subprocess.Popen("vcgencmd measure_volts core".split(" "), stdout=subprocess.PIPE).stdout.read()
+        # returns something like "volt=0.0..."
+        output = p.decode("utf-8").rstrip()[5:-1] # strip the string
+        value = float(output) # convert to number
+        text = output
+        color, max = getColor(value, "corevoltage", color_palette)
+    except:
+        value = None
+        text = "-"
+        color = default_color
+        max = 0
+
+    return_dict["corevoltage"] = {
+        "value": value,
+        "text": text,
         "color": color,
         "max": max
     }
@@ -201,19 +257,19 @@ def getStats(color_palette, dt=1, default_color="#4CAF50", background_color="#E8
     try:
         p = subprocess.Popen("who", stdout=subprocess.PIPE).stdout.read()
         output = p.decode("utf-8").rstrip().split("\n")[1:]
-        ssh_connections_value = len(output)
-        ssh_connections_text = str(len(output))
-        color, max = getColor(ssh_connections_value, "sshconnections", color_palette)
+        value = len(output)
+        text = str(len(output))
+        color, max = getColor(value, "sshconnections", color_palette)
     except:
 
-        ssh_connections_value = None
-        ssh_connections_text = "-"
+        value = None
+        text = "-"
         color = default_color
         max = 0
 
     return_dict["sshconnections"] = {
-        "value": ssh_connections_value,
-        "text": ssh_connections_text,
+        "value": value,
+        "text": text,
         "color": color,
         "max": max
     }
@@ -222,26 +278,26 @@ def getStats(color_palette, dt=1, default_color="#4CAF50", background_color="#E8
     try:
         p = subprocess.Popen("netstat -n".split(" "), stdout=subprocess.PIPE).stdout.read()
         output = p.decode("utf-8").rstrip().split("\n")[1:]
-        ftp_connections_value = 0
+        vlue = 0
         for line in output:
             # remove multiple spaces and then split every word
             line = " ".join(line.split()).split(" ")
             # check if ":21" (ftp port) in ip
             if ":21" in line[3]:
-                ftp_connections_value += 1
+                vlue += 1
 
-        ftp_connections_text = str(ftp_connections_value)
-        color, max = getColor(ftp_connections_value, "sshconnections", color_palette)
+        text = str(vlue)
+        color, max = getColor(vlue, "sshconnections", color_palette)
     except:
 
-        ftp_connections_value = None
-        ftp_connections_text = "-"
+        vlue = None
+        text = "-"
         color = default_color
         max = 0
 
     return_dict["ftpconnections"] = {
-        "value": ftp_connections_value,
-        "text": ftp_connections_text,
+        "value": vlue,
+        "text": text,
         "color": color,
         "max": max
     }
@@ -267,8 +323,9 @@ def getNetwork():
         "hostname": hostname
     }
 
-
 app = Flask(__name__)
+
+# index
 @app.route('/')
 @app.route('/homepage')
 def index():
@@ -277,6 +334,7 @@ def index():
     background_color = settings["Page"]["background-color"]
     return render_template('index.html', background_color=background_color)
 
+# endpoint to get stats
 @app.route("/getstats/", methods=['POST'])
 def get_stats():
     # if dt parameter wasn't sent, we default it to 1 second
@@ -294,10 +352,45 @@ def get_stats():
     stats = getStats(color_palette, ext_hdd_path=external_hdd_path, background_color=background_color, default_color=default_color, dt=dt)
     return jsonify(stats)
 
+# get stats api
+@app.route("/api/stats", methods=['GET'])
+def api_stats():
+    started = datetime.now();
+    try:
+        dt = float(request.args.get("dt")) / 1000
+    except:
+        dt = 1
+
+    return_dict = {}
+
+    settings = loadSettings()
+    background_color = settings["Page"]["background-color"]
+    default_color = settings["Page"]["default-color"]
+    color_palette = settings["Colormap"]
+    external_hdd_path = settings["Server"] ["external_hdd_path"]
+    stats = getStats(color_palette, ext_hdd_path=external_hdd_path, background_color=background_color, default_color=default_color, dt=dt)
+    network = getNetwork()
+    return_dict["stats"] = stats;
+    return_dict["network"] = network;
+
+    ended = datetime.now()
+    elapsed = (ended - started).total_seconds() * 1000
+    print(elapsed)
+    return_dict["info"] = {
+        "time": datetime.now().isoformat(),
+        "elapsed": elapsed,
+        "request_ip": request.remote_addr,
+        "dt": dt
+    }
+
+    return jsonify(return_dict)
+# endpoint to get infos about network
 @app.route("/getnetwork/", methods=['POST'])
 def get_network():
     network = getNetwork()
     return jsonify(network)
+
+
 
 if __name__ == '__main__':
     settings = loadSettings()
