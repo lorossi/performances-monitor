@@ -78,13 +78,17 @@ function getStats(dt) {
 					$(".network#symbol").css("color", ok_color);
 					// hide loading animation
 					if ($(".loadingicon").css("opacity") > 0) {
-						$(".loadingicon").fadeOut("fast", function() {
+						$(".loadingicon").fadeOut(50, function() {
 							$(".loadingicon").css("display", "none");
 						});
 					}
-					// hide error message (if any)
 					if (error_shown) {
+						// hide error message (if any)
 						$(".errormessage").css({
+							"display": "none"
+						});
+						// hide grey screen (if any)
+						$(".greyscreen").css({
 							"display": "none"
 						});
 						error_shown = false;
@@ -105,9 +109,11 @@ function getStats(dt) {
 				$(".networkcontainer").css("color", error_color);
 				// show error message
 				$(".errormessage").css("display", "inline-block");
+				// show grey screen
+				$(".greyscreen").css("display", "inline-block");
 				// show loading animation
 				$(".loadingicon").css("display", "block");
-				$(".loadingicon").fadeIn("fast");
+				$(".loadingicon").fadeIn(200);
 				error_shown = true;
 			}
 		}

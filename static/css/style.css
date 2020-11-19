@@ -22,7 +22,7 @@ body {
   max-width: 300px;
   font-size: var(--primary-font-size);
   padding: var(--primary-font-size);
-  z-index: 100;
+  z-index: 200;
 
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
@@ -46,7 +46,19 @@ body {
   transform: translate(50%,-50%);
   width: 50vw;
   height: 50vw;
+  z-index: 100;
+}
+
+.greyscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 50;
+  background-color: var(--grey-bg-color);
+  opacity: 0.75;
+  display: none;
 }
 
 .separator {
@@ -60,7 +72,7 @@ body {
 .networkcontainer {
   padding-top: calc(var(--secondary-font-size)* 3/4);
   padding-bottom: calc(var(--secondary-font-size)* 3/4);
-  padding-left: var(--stats-horizontal-spacing);
+  padding-left: calc(var(--stats-horizontal-spacing) + var(--secondary-font-size));
   height: auto;
   font-size: var(--secondary-font-size);
   vertical-align: middle;
