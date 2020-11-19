@@ -3,7 +3,8 @@
     "host": "0.0.0.0",
     "port": 4567,
     "debug": true,
-    "external_hdd_path": "/mnt/ext_hdd/"
+    "external_hdd_path": "/mnt/ext_hdd/",
+    "demo_mode": false
   },
   "Page" : {
     "background-color":	"#FFFFFF",
@@ -88,15 +89,33 @@
         "color": "#388E3C"
       },
       {
-        "value": 55,
+        "value": 60,
         "color": "#FFA000"
       },
       {
-        "value": 65,
+        "value": 75,
         "color": "#F57F17"
       },
       {
         "value": 100,
+        "color": "#E64A19"
+      }
+    ],
+    "corevoltage" : [
+      {
+        "value": 0.8,
+        "color": "#E64A19"
+      },
+      {
+        "value": 1.4,
+        "color": "#388E3C"
+      },
+      {
+        "value": 1.35,
+        "color": "#F57F17"
+      },
+      {
+        "value": 2,
         "color": "#E64A19"
       }
     ],
@@ -151,6 +170,20 @@
       },
       {
         "value": 3,
+        "color": "#E64A19"
+      }
+    ],
+    "undervoltage" : [
+      {
+        "value": 0,
+        "color": "#388E3C"
+      },
+      {
+        "value": 1,
+        "color": "#F57F17"
+      },
+      {
+        "value": 2,
         "color": "#E64A19"
       }
     ],
