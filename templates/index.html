@@ -9,10 +9,8 @@
   <meta name="author" content="Lorenzo Rossi">
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/chartist.min.css') }}">
 
   <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/chartist.min.js') }}" ></script>
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
   <style>
@@ -34,7 +32,6 @@
     }
 
     .stat {
-      background-color: {{ default_color }};
       color: {{ background_color }};
     }
   </style>
@@ -73,6 +70,10 @@
       </div>
       <div class="stat" id="exthdd">
         <p class="statname">ext HDD</p>
+        <p class="statvalue">-</p>
+      </div>
+      <div class="stat" id="overheating">
+        <p class="statname">Overheating</p>
         <p class="statvalue">-</p>
       </div>
     </div>
