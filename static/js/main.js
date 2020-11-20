@@ -1,8 +1,12 @@
+let charts;
 let refresh_interval;
 let error_shown;
 let dt;
 
 $(document).ready(function() {
+	charts = {};
+	data = {};
+
 	error_shown = false;
 	refresh_interval = 5000;
 	dt = 2000;
@@ -19,15 +23,9 @@ $(document).ready(function() {
 	});
 });
 
-// the only way i found to access css variables
-function getCssProperty(property) {
-  let css_property = $(":root").css(property);
-  return css_property.split(" ").join("");
-}
-
 function getNetwork() {
 	$.ajax({
-		type: 'POST',
+		type: 'GET',
 		url: '/getnetwork/',
 		complete: function(response) {
 			if (response.status == 200) {
@@ -41,7 +39,7 @@ function getNetwork() {
 
 function getStats(dt) {
 	$.ajax({
-		type: 'POST',
+		type: 'GET',
 		url: '/getstats/',
 		data: {
 			"dt": dt
@@ -52,6 +50,15 @@ function getStats(dt) {
 				any = false;
 				for (let property in response.responseJSON) {
 					if (response.responseJSON[property].value != null) {
+						// create new chart
+						if (charts[property] === undefined) {
+							let chart_container = `#${property} .chart`;
+							let chart_max_value = response.responseJSON[property].max
+							charts[property] = new Chart(chart_container, chart_max_value);
+						}
+						charts[property].addData(response.responseJSON[property].value);
+						charts[property].updateChart();
+
 						any = true;
 						// the value is not null, we proceed to show the div
 						$(`#${property} .statvalue`).text(response.responseJSON[property].text);

@@ -15,6 +15,7 @@
   --loading-color: #969696;
   --error-symbol: ✗;
   --ok-symbol: ✓;
+  --chart-max-bars: 50;
 }
 
 @media only screen and (min-width: 992px) {
@@ -23,7 +24,8 @@
     --stats-horizontal-spacing: 1vh;
     --error-code-size: 12rem;
     --error-description-size: 3rem;
-    --primary-font-size: 3rem;
-    --secondary-font-size: 2rem;
+    --primary-font-size: 4rem;
+    --secondary-font-size: 3rem;
+    --chart-max-bars: 100;
   }
 }

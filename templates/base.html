@@ -16,12 +16,12 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='ico/favicon.ico') }}">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/vars.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/loadingicon.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/error.css') }}">
 
     <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/getcssproperty.js') }}"></script>
+
+    {% block head %}{% endblock %}
 
     <style>
       @font-face {
@@ -40,6 +40,6 @@
 
   </head>
   <body>
-    {% block content %}{% endblock %}
+    {% block body %}{% endblock %}
   </body>
 </html>

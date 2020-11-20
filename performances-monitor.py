@@ -1,5 +1,5 @@
 # This code is PEP-8 compliant
-# I hope this is commented enough!
+# I hope this is commented well enough!
 # Made by Lorenzo Rossi
 
 
@@ -29,10 +29,10 @@ def runCommand(command):
 # returns color and max value according to the provided value
 # and the color palette (found in the settings file)
 def getColor(value, item, palette):
-    color = palette["default"]["color"]  # default color, in case it's not found
-    max = palette["default"]["value"] # default max, in case it's not found
+    color = palette["default"]["color"]  # default color
+    max = palette["default"]["value"]  # default max
 
-    if value not in palette.keys():
+    if item not in palette.keys():
         return color, max
 
     for color in palette[item]:
@@ -320,7 +320,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
             if ":21" in line[3]:
                 ips.append(line[3])
 
-        ips = list(set(ips)) # remove duplicates
+        ips = list(set(ips))  # remove duplicates
         value = len(ips)
         text = str(value)
         color, max = getColor(value, "sshconnections", color_palette)
@@ -371,6 +371,7 @@ def index():
     # now we load body background color and stats text color
     return render_template("index.html")
 
+
 # error 404 page
 @app.errorhandler(404)
 def not_found_error(error):
@@ -388,7 +389,7 @@ def not_found_error(error):
 
 
 # endpoint to get stats
-@app.route("/getstats/", methods=['POST'])
+@app.route("/getstats/", methods=['GET'])
 def get_stats():
     # if dt parameter wasn't sent, we default it to 1 second
     try:
@@ -405,7 +406,7 @@ def get_stats():
 
 
 # endpoint to get infos about network
-@app.route("/getnetwork/", methods=['POST'])
+@app.route("/getnetwork/", methods=['GET'])
 def get_network():
     network = getNetwork()
     return jsonify(network)

@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block head %}
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loadingicon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chart.css') }}">
+{% endblock %}
+
+{% block body %}
   <div class="errormessage">
     <p>Error: cannot connect to server. <br> Check server status and connection.</p>
     <p class="closebutton">close</p>
@@ -25,50 +33,62 @@
     <div class="stat" id="cpu">
       <p class="statname">CPU usage</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
     <div class="stat" id="ram">
       <p class="statname">RAM usage</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
     <div class="stat" id="load">
       <p class="statname">CPU load</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
     <div class="stat" id="network">
       <p class="statname">Network</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
     <div class="stat" id="temperature">
       <p class="statname">Temperature</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
     <div class="stat" id="corevoltage">
       <p class="statname">Core voltage</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
     <div class="stat" id="hdd">
       <p class="statname">HDD</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
     <div class="stat" id="exthdd">
       <p class="statname">ext HDD</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
     <div class="stat" id="overheating">
       <p class="statname">Overheating</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
     <div class="stat" id="undervoltage">
       <p class="statname">Undervoltage</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
     <div class="stat" id="sshconnections">
       <p class="statname">Active SSH</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
     <div class="stat" id="ftpconnections">
       <p class="statname">Active FTP</p>
       <p class="statvalue">-</p>
+      <div class="chart"></div>
     </div>
   </div>
 {% endblock %}

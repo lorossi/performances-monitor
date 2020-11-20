@@ -1,0 +1,45 @@
+.chart {
+  display: block;
+  position: absolute;
+  z-index: 20;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.chart, .chartcontainer, .bar {
+  height: 100%;
+}
+
+.chartcontainer {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.chart .bar {
+  width: auto;
+  height: 100%;
+  margin-top: 0;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+}
+
+.chart .value {
+  opacity: 0.1;
+  border-radius: 1px;
+}
+
+.chart .filler {
+  opacity: 0;
+}
+
+@media only screen and (min-width: 992px) {
+  .chart .value {
+    opacity: 0.05;
+    border-radius: 3px;
+  }
+}
