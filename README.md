@@ -10,6 +10,7 @@ For some stats *(core voltage, overheating, undervoltage)* it uses the command `
 The code is PEP-8 compliant.
 
 ## Screenshots
+**TODO...**
 
 ## Installation
 1. Clone the repo in any folder
