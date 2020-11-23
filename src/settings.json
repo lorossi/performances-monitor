@@ -66,19 +66,19 @@
     ],
     "network" : [
       {
-        "value": 10,
+        "value": 5,
         "color": "#60a917"
       },
       {
-        "value": 20,
+        "value": 10,
         "color": "#e3c800"
       },
       {
-        "value": 40,
+        "value": 20,
         "color": "#fa6800"
       },
       {
-        "value": 100,
+        "value": 40,
         "color": "#a20025"
       }
     ],
