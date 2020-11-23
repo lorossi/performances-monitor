@@ -29,9 +29,7 @@ $(document).ready(function() {
 				$(d).attr("direction", "");
 				$(d).css("top", "auto")
 			});
-
-			$("html").css("overflow-y", ""); // re-enable scrolling
-
+			enableScroll();
 		} else { // time to grow
 			$('div.stat[grow="grow"]').toArray().forEach((d, i) => {
 				$(d).attr("grow", "shrink");
@@ -39,17 +37,21 @@ $(document).ready(function() {
 
 			$(this).attr("direction", "right");
 			$(this).attr("grow", "grow");
-			$('div.stat[direction="right"]').css("top", $(document).scrollTop() + "px");
+			let top = $(document).scrollTop();
+			$('div.stat[direction="right"]').css("top", top + "px");
+			disableScroll(top);
 		}
-
-		$("html").css("overflow-y", "hidden"); // stop scrolling
 	});
 });
 
-function stopScrolling (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
+function disableScroll(top) {
+	window.onscroll = function() {
+  	window.scrollTo(0, top);
+	};
+}
+
+function enableScroll() {
+    window.onscroll = function() {};
 }
 
 function getNetwork() {

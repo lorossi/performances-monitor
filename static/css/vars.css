@@ -15,13 +15,13 @@
   --loading-color: #969696;
   --error-symbol: ✗;
   --ok-symbol: ✓;
-  --chart-max-bars: 50;
+  --chart-max-bars: 100;
 }
 
 @media only screen and (min-width: 992px) {
   :root {
     --stats-vertical-spacing: 1vh;
-    --stats-horizontal-spacing: 1vw;
+    --stats-horizontal-spacing: 1vh;
     --error-code-size: 12rem;
     --error-description-size: 3rem;
     --primary-font-size: 4rem;
