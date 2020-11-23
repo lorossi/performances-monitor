@@ -4,24 +4,25 @@ let error_shown;
 let dt;
 
 $(document).ready(function() {
-	charts = {};
-	data = {};
+	charts = {}; // charts container
 
-	error_shown = false;
-	refresh_interval = 5000;
-	dt = 2000;
+	error_shown = false; // is error currently on screen?
+	refresh_interval = 5000; // how often we fetch data
+	dt = 2000; // data time interval (the longer, the more accurate some stats are)
 
 	getStats(500);
 	getNetwork();
 
 	setInterval(getStats, refresh_interval, dt);
 
+	// handles the "close" button on error page
 	$(".closebutton").click(function() {
 		$(".errormessage").css({
 			"display": "none"
 		});
 	});
 
+	// handles expansion and shrinking of stats container
 	$(".stat").click(function() {
 		if ($(this).attr("grow") === "grow") { // time to shrink
 			$('div.stat[grow="grow"]').toArray().forEach((d, i) => {
@@ -29,7 +30,7 @@ $(document).ready(function() {
 				$(d).attr("direction", "");
 				$(d).css("top", "auto")
 			});
-			enableScroll();
+			enableScroll(); // re enable page scrolling
 		} else { // time to grow
 			$('div.stat[grow="grow"]').toArray().forEach((d, i) => {
 				$(d).attr("grow", "shrink");
@@ -39,7 +40,7 @@ $(document).ready(function() {
 			$(this).attr("grow", "grow");
 			let top = $(document).scrollTop();
 			$('div.stat[direction="right"]').css("top", top + "px");
-			disableScroll(top);
+			disableScroll(top); // disable page scrolling
 		}
 	});
 });
@@ -120,6 +121,9 @@ function getStats(dt) {
 							$(".loadingicon").css("display", "none");
 						});
 					}
+					// set ok favicon
+					$('link[rel="shortcut icon"]').attr('href','/static/ico/favicon-ok.ico');
+
 					if (error_shown) {
 						// hide error message (if any)
 						$(".errormessage").css({
@@ -152,6 +156,8 @@ function getStats(dt) {
 				// show loading animation
 				$(".loadingicon").css("display", "block");
 				$(".loadingicon").fadeIn(200);
+				// set error favicon
+				$('link[rel="shortcut icon"]').attr('href','/static/ico/favicon-error.ico');
 				error_shown = true;
 			}
 		}
