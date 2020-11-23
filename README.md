@@ -23,23 +23,27 @@ This (hopefully) clean and easy-on-the-eyes ui will show all the important stats
 8. Public APIs to get all the stats about the devices (see below for more infos)
 9. A cool loading GIF made completely in CSS
 
-## Screenshots
-![View on a large screen](https://github.com/lorossi/performances-monitor/blob/master/screenshots/large-screen.png)
-![View on a small screen](https://github.com/lorossi/performances-monitor/blob/master/screenshots/small-screen.png)
-![Fullscreen visualization on small screen](https://github.com/lorossi/performances-monitor/blob/master/screenshots/fullscreen-small-screen.png)
-![Error on small screen](https://github.com/lorossi/performances-monitor/blob/master/screenshots/error-small-screen.png)
-
 ## Installation
 1. Clone the repo in any folder
 2. Install the required dependencies using `pip install -r requirements.txt`
 3. Customize the setting file located in *src/settings.json* according to your needs
 4. Run the python script via `python3 performances-monitor.py`
-5. There you go! The webpage will now be viewable inside your browser
+5. There you go! The webpage will now be viewable inside your browser by loading the address you set in the settings file
 
 ## Api endpoints
 - `/api/stats?dt=[msec]` to get all the stats. The bigger the `dt` parameter is, the more the request will take but it will be more accurate
 - `api/time` to get the machine current time
 - `api/temperature` to get the machine current temperature
+
+## Screenshots
+![View on a large screen](https://github.com/lorossi/performances-monitor/blob/master/screenshots/large-screen.png)
+View on large (laptops and desktops) screen
+![View on a small screen](https://github.com/lorossi/performances-monitor/blob/master/screenshots/small-screen.png)
+View on smaller screens (like on phones)
+![Fullscreen visualization on small screen](https://github.com/lorossi/performances-monitor/blob/master/screenshots/fullscreen-small-screen.png)
+Fullscreen visualization of a stat
+![Error on small screen](https://github.com/lorossi/performances-monitor/blob/master/screenshots/error-small-screen.png)
+Error when the server cannot be contacted
 
 ## Credits
 The font used is [_Roboto_ by _Christian Robertson_.](https://github.com/google/roboto/)
