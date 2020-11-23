@@ -7,8 +7,8 @@ $(document).ready(function() {
 	charts = {}; // charts container
 
 	error_shown = false; // is error currently on screen?
-	refresh_interval = 5000; // how often we fetch data
-	dt = 2000; // data time interval (the longer, the more accurate some stats are)
+	refresh_interval = 2500; // how often we fetch data
+	dt = 2500; // data time interval (the longer, the more accurate some stats are)
 
 	getStats(500);
 	getNetwork();
@@ -36,10 +36,23 @@ $(document).ready(function() {
 				$(d).attr("grow", "shrink");
 			});
 
-			$(this).attr("direction", "right");
+			let first_in_line = $(this).offset().left < $(".statscontainer").offset().left + $(".stat").width();
+			let direction;
+
+			if (first_in_line) {
+			//	$(this).attr("direction", "right");
+				direction = "right";
+			} else {
+				//$(this).attr("direction", "left");
+				direction = "left";
+			}
+			$(this).attr("direction", direction);
+
 			$(this).attr("grow", "grow");
+			$(this).css("top", 0)
+
 			let top = $(document).scrollTop();
-			$('div.stat[direction="right"]').css("top", top + "px");
+			$(this).css("top", top + "px");
 			disableScroll(top); // disable page scrolling
 		}
 	});

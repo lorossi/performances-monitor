@@ -131,11 +131,16 @@ div.stat[grow="grow"] {
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
 
+  font-size: calc(var(--primary-font-size) * 2);
+
+  position: absolute;
+  min-width: 0;
+  min-height: 0;
   max-height: 100vh;
   height: 100vh;
+  top: 0;
   z-index: 50;
   justify-content: flex-start;
-  position: fixed;
 }
 
 @keyframes grow {
@@ -147,7 +152,7 @@ div.stat[grow="grow"] {
   to {
     width: 100vw;
     opacity: 1;
-    font-size: calc(var(--primary-font-size) * 2);
+
   }
 }
 
@@ -161,10 +166,11 @@ div.stat[grow="grow"] .statname {
 
 
 div.stat[direction="right"] {
-  position: absolute;
   left: 0;
-  min-width: 0;
-  min-height: 0;
+}
+
+div.stat[direction="left"] {
+  right: 0;
 }
 
 div.stat[grow="shrink"] {
