@@ -21,7 +21,36 @@ $(document).ready(function() {
 			"display": "none"
 		});
 	});
+
+	$(".stat").click(function() {
+		if ($(this).attr("grow") === "grow") { // time to shrink
+			$('div.stat[grow="grow"]').toArray().forEach((d, i) => {
+				$(d).attr("grow", "shrink");
+				$(d).attr("direction", "");
+				$(d).css("top", "auto")
+			});
+
+			$("html").css("overflow-y", ""); // re-enable scrolling
+
+		} else { // time to grow
+			$('div.stat[grow="grow"]').toArray().forEach((d, i) => {
+				$(d).attr("grow", "shrink");
+			});
+
+			$(this).attr("direction", "right");
+			$(this).attr("grow", "grow");
+			$('div.stat[direction="right"]').css("top", $(document).scrollTop() + "px");
+		}
+
+		$("html").css("overflow-y", "hidden"); // stop scrolling
+	});
 });
+
+function stopScrolling (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+}
 
 function getNetwork() {
 	$.ajax({

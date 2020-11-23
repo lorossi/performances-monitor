@@ -30,7 +30,6 @@
 
 .chart .value {
   opacity: 0.1;
-  border-radius: 1px;
 }
 
 .chart .filler {
@@ -39,7 +38,6 @@
 
 @media only screen and (min-width: 992px) {
   .chart .value {
-    opacity: 0.05;
-    border-radius: 3px;
+    opacity: 0.5;
   }
 }
