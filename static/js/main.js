@@ -3,7 +3,7 @@ let refresh_interval;
 let error_shown;
 let dt;
 
-$(document).ready(function() {
+$(document).ready(function() {	
 	charts = {}; // charts container
 
 	error_shown = false; // is error currently on screen?
@@ -26,9 +26,9 @@ $(document).ready(function() {
 	$(".stat").click(function() {
 		if ($(this).attr("grow") === "grow") { // time to shrink
 			$('div.stat[grow="grow"]').toArray().forEach((d, i) => {
-				$(d).attr("grow", "shrink");
-				$(d).attr("direction", "");
-				$(d).css("top", "auto")
+				$(d).attr("grow", "shrink"); // div is now shrinking
+				$(d).attr("direction", ""); // remove direction
+				$(d).css("top", "auto"); // reset top
 			});
 			enableScroll(); // re enable page scrolling
 		} else { // time to grow
@@ -36,21 +36,18 @@ $(document).ready(function() {
 				$(d).attr("grow", "shrink");
 			});
 
-			let first_in_line = $(this).offset().left < $(".statscontainer").offset().left + $(".stat").width();
-			let direction;
+			let item_left = $(this).offset().left < $(".statscontainer").offset().left + $(".stat").width(); // first item in line
+			let direction; // animation direction
 
-			if (first_in_line) {
-			//	$(this).attr("direction", "right");
+			if (item_left) {
 				direction = "right";
 			} else {
-				//$(this).attr("direction", "left");
 				direction = "left";
 			}
-			$(this).attr("direction", direction);
+			$(this).attr("direction", direction); // save in attr
+			$(this).attr("grow", "grow"); // save in attr
 
-			$(this).attr("grow", "grow");
-			$(this).css("top", 0)
-
+			// this following section makes sure that the div is now fullscreen
 			let top = $(document).scrollTop();
 			$(this).css("top", top + "px");
 			disableScroll(top); // disable page scrolling
