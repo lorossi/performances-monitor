@@ -1,6 +1,7 @@
 :root {
   --stats-vertical-spacing: 2vh;
   --stats-horizontal-spacing: 2vh;
+  --stats-width: calc(50% - var(--stats-vertical-spacing)/2);
   --error-code-size: 10rem;
   --error-description-size: 4rem;
   --primary-font-size: 1.5rem;
@@ -22,8 +23,16 @@
   :root {
     --stats-vertical-spacing: 1vh;
     --stats-horizontal-spacing: 1vh;
+    --stats-width: calc(33% - var(--stats-vertical-spacing)/2);
     --error-code-size: 12rem;
     --error-description-size: 3rem;
+    --primary-font-size: 2.5rem;
+    --secondary-font-size: 2rem;
+  }
+}
+
+@media only screen and (min-width: 1150px) {
+  :root {
     --primary-font-size: 4rem;
     --secondary-font-size: 3rem;
   }

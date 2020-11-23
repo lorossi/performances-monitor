@@ -110,7 +110,7 @@ div.stat {
   min-width: 100px;
   min-height: 100px;
   max-height: 140px;
-  width: calc(50% - var(--stats-vertical-spacing)/2);
+  width: var(--stats-width);
   height: 20vh;
   margin-bottom: var(--stats-vertical-spacing);
   position: relative;
@@ -126,21 +126,12 @@ div.stat {
 }
 
 div.stat[grow="grow"] {
-/*  transition: width .5s 0s, left .5s 0s, top .5s 0s;
-  width: 100%;
-  max-height: 100vh;
-  height: 100vh;
-  z-index: 50;
-  font-size: calc(var(--primary-font-size) * 2);
-  justify-content: flex-start;
-  position: fixed;*/
   animation-name: grow;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
 
   max-height: 100vh;
-  max-width: 100vw;
   height: 100vh;
   z-index: 50;
   justify-content: flex-start;
