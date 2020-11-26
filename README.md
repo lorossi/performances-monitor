@@ -9,6 +9,8 @@ For some stats *(core voltage, overheating, undervoltage)* it uses the command `
 
 The code is PEP-8 compliant. The backend is based on Flask library for Python3, the frontend is written in JS with jQuery.
 
+If you encounter any strange behaviour while using this program (for example, missing features or something doesn't work) make sure to set `verbose_logging=true` in the settings file to make it produce a more detailed log.
+
 ## Features
 
 This (hopefully) clean and easy-on-the-eyes ui will show all the important stats about your hardware in a compact manner. As you can see in the screenshots, it features:
@@ -21,7 +23,7 @@ This (hopefully) clean and easy-on-the-eyes ui will show all the important stats
 6. A clean, well commented code (Python code is PEP-8 compliant)
 7. Full logging of errors
 8. Public APIs to get all the stats about the devices (see below for more infos)
-9. A cool loading GIF made completely in CSS
+9. A cool loading GIF made completely in CSS (*although not by me*)
 
 ## Installation
 1. Clone the repo in any folder

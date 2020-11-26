@@ -10,7 +10,7 @@ import psutil
 import logging
 import subprocess
 from datetime import datetime
-from flask import Flask, render_template, request, jsonify, url_for
+from flask import Flask, render_template, request, jsonify
 
 
 # loads settings from settings file
@@ -57,7 +57,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         text = f"{value}%"
         color, max = getColor(value, "cpu", color_palette)
     except Exception as e:
-        logging.warning(e)
+        logging.warning("cannot read cpu percentage. error: %s", e)
         value = "-"
         text = None
         color = None
@@ -76,7 +76,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         text = f"{value}%"
         color, max = getColor(value, "ram", color_palette)
     except Exception as e:
-        logging.warning(e)
+        logging.warning("cannot read ran percentage. error: %s", e)
         value = None
         text = "-"
         color = None
@@ -95,7 +95,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         text = str(value)
         color, max = getColor(value, "load", color_palette)
     except Exception as e:
-        logging.warning(e)
+        logging.warning("cannot read cpu load. error: %s", e)
         value = None
         text = "-"
         color = None
@@ -114,7 +114,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         text = f"{round(value, 1)}°C"
         color, max = getColor(value, "temperature", color_palette)
     except Exception as e:
-        logging.warning(e)
+        logging.warning("cannot read cpu temperature. error: %s", e)
         value = None
         text = "-"
         color = None
@@ -143,7 +143,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         text = f"{round(value, 1)} MB/s"
         color, max = getColor(value, "network", color_palette)
     except Exception as e:
-        logging.warning(e)
+        logging.warning("cannot read newtork load. error: %s", e)
         value = None
         text = "-"
         color = None
@@ -163,7 +163,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         value = int(text[:-1])
         color, max = getColor(value, "hdd", color_palette)
     except Exception as e:
-        logging.warning(e)
+        logging.warning("cannot read hdd space. error: %s", e)
         value = None
         text = "-"
         color = None
@@ -183,7 +183,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         value = int(text[:-1])
         color, max = getColor(value, "exthdd", color_palette)
     except Exception as e:
-        logging.warning(e)
+        logging.warning("cannot read exthdd space. error: %s", e)
         value = None
         text = "-"
         color = None
@@ -218,7 +218,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
 
         color, max = getColor(value, "overheating", color_palette)
     except Exception as e:
-        logging.warning(e)
+        logging.warning("cannot read cpu overheating. error: %s", e)
         value = None
         text = "-"
         color = None
@@ -251,7 +251,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
 
         color, max = getColor(value, "undervoltage", color_palette)
     except Exception as e:
-        logging.warning(e)
+        logging.warning("cannot read cpu undervoltage. error: %s", e)
         value = None
         text = "-"
         color = None
@@ -274,7 +274,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         text = output
         color, max = getColor(value, "corevoltage", color_palette)
     except Exception as e:
-        logging.warning(e)
+        logging.warning("cannot read cpu core voltage. error: %s", e)
         value = None
         text = "-"
         color = None
@@ -295,7 +295,7 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         text = str(value)
         color, max = getColor(value, "sshconnections", color_palette)
     except Exception as e:
-
+        logging.warning("cannot read active ssh connections. error: %s", e)
         value = None
         text = "-"
         color = None
@@ -323,9 +323,9 @@ def getStats(color_palette, dt=1, ext_hdd_path="/mnt/ext_hdd/"):
         ips = list(set(ips))  # remove duplicates
         value = len(ips)
         text = str(value)
-        color, max = getColor(value, "sshconnections", color_palette)
+        color, max = getColor(value, "ftpconnections", color_palette)
     except Exception as e:
-        logging.warning(e)
+        logging.warning("cannot active ftp connections. error: %s", e)
         value = None
         text = "-"
         color = None
@@ -347,18 +347,21 @@ def getNetwork():
         command = "hostname -I"
         ip = runCommand(command).split(" ")[0]
     except Exception as e:
+        logging.warning("cannot read hostname. error: %s", e)
         ip = ""
 
     try:
         command = "hostname"
         hostname = runCommand(command)
     except Exception as e:
+        logging.warning("cannot read local ip. error: %s", e)
         hostname = ""
 
     return {
         "ip": ip,
         "hostname": hostname
     }
+
 
 app = Flask(__name__)
 
@@ -367,23 +370,22 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/homepage')
 def index():
-    settings = loadSettings()  # loads settings
     # now we load body background color and stats text color
     return render_template("index.html")
 
 
 # error 404 page
 @app.errorhandler(404)
-def not_found_error(error):
-    logging.error(error)
+def error_400(e):
+    logging.error("error 404: %s", e)
     return render_template("error.html", errorcode=404,
                            errordescription="page not found"), 404
 
 
 # error 500 page
 @app.errorhandler(Exception)
-def not_found_error(error):
-    logging.error(error)
+def error_500(e):
+    logging.error("error 500: %s", e)
     return render_template("error.html", errorcode=500,
                            errordescription="internal server error"), 500
 
@@ -396,6 +398,7 @@ def get_stats():
         # msec string to seconds
         dt = float(request.form["dt"]) / 1000
     except Exception as e:
+        logging.warning("error while parsing stats dt: %s", e)
         dt = 1
 
     settings = loadSettings()
@@ -421,6 +424,7 @@ def api_stats():
     try:
         dt = float(request.args.get("dt")) / 1000
     except Exception as e:
+        logging.warning("error while parsing api stats dt: %s", e)
         dt = 1
 
     settings = loadSettings()
@@ -478,11 +482,18 @@ def api_time():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(filename="performances-monitor.log",
-                        level=logging.ERROR, filemode="w",
-                        format='%(asctime)s %(levelname)s %(message)s')
-
     settings = loadSettings()
+
+    verbose_logging = settings["Server"]["verbose_logging"]
+    if verbose_logging:
+        logging.basicConfig(filename="performances-monitor.log",
+                            level=logging.INFO, filemode="w",
+                            format='%(asctime)s %(levelname)s %(message)s')
+    else:
+        logging.basicConfig(filename="performances-monitor.log",
+                            level=logging.ERROR, filemode="w",
+                            format='%(asctime)s %(levelname)s %(message)s')
+
     app.run(host=settings["Server"]["host"],
             port=settings["Server"]["port"],
             debug=settings["Server"]["debug"])

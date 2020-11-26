@@ -3,7 +3,8 @@
     "host": "0.0.0.0",
     "port": 4567,
     "external_hdd_path": "/mnt/ext_hdd/",
-    "debug": true
+    "debug": false,
+    "verbose_logging": false
   },
   "Colormap" : {
     "default" : {

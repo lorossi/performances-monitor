@@ -71,8 +71,8 @@ body {
 }
 
 .networkcontainer {
-  padding-top: calc(var(--secondary-font-size) / 2);
-  padding-bottom: calc(var(--secondary-font-size) / 2);
+  padding-top: calc(var(--secondary-font-size));
+  padding-bottom: calc(var(--secondary-font-size));
   padding-left: var(--stats-horizontal-spacing);
   height: auto;
   font-size: var(--secondary-font-size);
