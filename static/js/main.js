@@ -3,7 +3,7 @@ let refresh_interval;
 let error_shown;
 let dt;
 
-$(document).ready(function() {	
+$(document).ready(function() {
 	charts = {}; // charts container
 
 	error_shown = false; // is error currently on screen?
@@ -30,6 +30,7 @@ $(document).ready(function() {
 				$(d).attr("direction", ""); // remove direction
 				$(d).css("top", "auto"); // reset top
 			});
+			$("body").css("overflow-y", "auto"); // show overflow again
 			enableScroll(); // re enable page scrolling
 		} else { // time to grow
 			$('div.stat[grow="grow"]').toArray().forEach((d, i) => {
@@ -50,6 +51,7 @@ $(document).ready(function() {
 			// this following section makes sure that the div is now fullscreen
 			let top = $(document).scrollTop();
 			$(this).css("top", top + "px");
+			$("body").css("overflow-y", "hidden"); // disable overflow
 			disableScroll(top); // disable page scrolling
 		}
 	});
