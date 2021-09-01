@@ -14,10 +14,9 @@ from flask import Flask, render_template, request, jsonify
 
 
 # loads settings from settings file
-def loadSettings(path="src/settings.json"):
+def loadSettings(path="static/src/settings.json"):
     with open(path) as json_file:
-        settings = json.load(json_file)
-    return settings
+        return json.load(json_file)
 
 
 # run command from shell
