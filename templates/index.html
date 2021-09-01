@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chart.css') }}">
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='ico/favicon-loading.ico') }}">
-{% block head %}
+{% endblock head %}
 
 {% block body %}
   <div class="errormessage">
@@ -93,4 +93,4 @@
       <div class="chart"></div>
     </div>
   </div>
-{% endblock %}
+{% endblock body %}
