@@ -7,3 +7,4 @@
 1. ~Add favicon~
 1. ~Click/tap to zoom on stat~
 1. Remove jQuery, refactor
+1. Fix FTP connections not showing
