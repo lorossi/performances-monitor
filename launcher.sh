@@ -1,3 +1,3 @@
-#!/usr/bin/env bash
+#!/bin/bash
 cd /home/pi/scripts/performances-monitor
-python3 performances-monitor.py
+venv/bin/python3 performances-monitor.py
